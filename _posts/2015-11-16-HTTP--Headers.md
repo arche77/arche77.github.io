@@ -10,9 +10,9 @@ tag: perl
 
 * 创建对象，直接赋值
 
-``` perl
+{% highlight perl linenos %}
 use HTTP::Headers;
 $h=HTTP::Headers->new;
 $h->header('Content-Type'=>'text/plain');
 $h->header('User-Agent'=>'Perl/1.0');
-```
+{% endhighlight %}
