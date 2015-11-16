@@ -1,7 +1,6 @@
 ---
 layout: post
 date: 2015-11-16 13:15:00 +0800
-category: perl
 tag: perl
 ---
 
