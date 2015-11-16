@@ -1,7 +1,7 @@
 ---
 layout:post
 tag:perl
-date:2015-111-16 23:36:00 +0800
+date:2015-11-16 23:36:00 +0800
 ---
 
 #HTTP::Request::Common模块
