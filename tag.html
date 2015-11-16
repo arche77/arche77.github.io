@@ -2,27 +2,38 @@
 layout: default
 ---
 
+<div class="home">
+  <ul id="post" class="post-list"></ul>
+</div>
+
 <script>
+	var getParam = function (url, name) {
+		var reg = new RegExp("(^|\\?|&|#)" + name + "=([^&]*)(&|$)", "i");
+		var oMatch = url.match(reg);
+		var result = "";
+		if (oMatch) {
+			result = decodeURIComponent(oMatch[2]);
+		}
+		return result;
+	};
 
+	var dataStr = '{ {% for tag in site.tags %}{% if tag[0] != site.tags.first[0] %},{% endif %}"{{ tag[0] }}":[{% for post in tag[1] %}{% if post != tag[1].first %},{% endif %}{"url":"{{post.url}}", "title":"{{post.title}}", "date":"{{post.date | date:"%d/%m/%Y"}}"}{% endfor %}]{% endfor %} }';
 
-var getParam = function (url, name) {
-			var reg = new RegExp("(^|\\?|&|#)" + name + "=([^&]*)(&|$)", "i");
-			var oMatch = url.match(reg);
-			var result = "";
-			if (oMatch) {
-				result = decodeURIComponent(oMatch[2]);
-			}
-			return result;
-		};
+	var data = JSON.parse(dataStr);
+	var curTag = getParam(location.href,"tag");
+	var posts = data[curTag];
 
-var dataStr = '{ {% for tag in site.tags %}{% if tag[0] != site.tags.first[0] %},{% endif %}"{{ tag[0] }}":[{% for post in tag[1] %}{% if post != tag[1].first %},{% endif %}{"url":"{{post.url}}", "title":"{{post.title}}", "date":"{{post.date | date:"%d/%m/%Y"}}"}{% endfor %}]{% endfor %} }';
+	var html = [];
+	$.each(posts,function(index,post) {
+		html.push([
+	      '<li>',
+	      '  <span class="post-meta">' + post.date + '</span>',
+	      '  <h2>',
+	      '    <a class="post-link" href="' + post.url + '">' + post.title + '</a>',
+	      '  </h2>',
+	      '</li>',
+	      ].join(''));
+	});
 
-var data = JSON.parse(dataStr);
-var curTag = getParam(location.href,"tag");
-var posts = data[curTag];
-    alert(dataStr);
-
-
-
-
+	$('#post').append(html.join(''));
 </script>
