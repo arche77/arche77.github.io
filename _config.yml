@@ -10,4 +10,5 @@ title: 古老的语言Perl
 
 # Build settings
 #markdown: kramdown
-markdown: rdiscount
+#markdown: rdiscount
+markdown: Redcarpet
